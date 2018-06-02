@@ -564,7 +564,7 @@ public:
 
 	int checkBipart(vector<char> &marks)
 	{
-		if (indx != 2) TransformToAdjList();
+		if (indx != 2) transformToAdjList();
 		vector<int> queue, visited;
 		marks[0] = 'A';
 		queue.push_back(1);
