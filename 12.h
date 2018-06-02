@@ -8,11 +8,11 @@
 #include <cstdlib>
 using namespace std;
 
-char fill[100];
-string baseStr;
+char buffer[100];
+string str;
 int tmp;
 
-vector<tuple<int, int, int>> vectTpls;
+vector<tuple<int, int, int>> vectTuples;
 
 bool TuplesCompare(const tuple<int, int, int> &lhs, const tuple<int, int, int> &rhs)
 {
@@ -81,38 +81,38 @@ public:
 		case 'C':
 		{
 			indicator = 1;
-			getline(input, baseStr);
-			vertexAmount = baseStr[1] - '0';
-			for (int j = 2; j < baseStr.length(); j++)
-				vertexAmount = vertexAmount * 10 + (baseStr[j] - '0');
+			getline(input, str);
+			vertexAmount = str[1] - '0';
+			for (int j = 2; j < str.length(); j++)
+				vertexAmount = vertexAmount * 10 + (str[j] - '0');
 			break;
 		}
 		case 'L':
 		{
 			indicator = 2;
-			getline(input, baseStr);
-			vertexAmount = baseStr[1] - '0';
-			for (int j = 2; j < baseStr.length(); j++)
-				vertexAmount = vertexAmount * 10 + (baseStr[j] - '0');
+			getline(input, str);
+			vertexAmount = str[1] - '0';
+			for (int j = 2; j < str.length(); j++)
+				vertexAmount = vertexAmount * 10 + (str[j] - '0');
 			break;
 		}
 		case 'E':
 		{
 			indicator = 3;
-			getline(input, baseStr);
-			vertexAmount = baseStr[1] - '0';
+			getline(input, str);
+			vertexAmount = str[1] - '0';
 			int i = 2;
-			while (baseStr[i] != ' ')
+			while (str[i] != ' ')
 			{
-				vertexAmount = vertexAmount * 10 + (baseStr[i] - '0');
+				vertexAmount = vertexAmount * 10 + (str[i] - '0');
 				i++;
 			}
 			i++;
-			edgeAmount = baseStr[i] - '0';
+			edgeAmount = str[i] - '0';
 			i++;
-			while (i < baseStr.length())
+			while (i < str.length())
 			{
-				edgeAmount = edgeAmount * 10 + (baseStr[i] - '0');
+				edgeAmount = edgeAmount * 10 + (str[i] - '0');
 				i++;
 			}
 			break;
@@ -125,21 +125,21 @@ public:
 
 		if (indicator == 1)
 		{
-			getline(input, baseStr);
+			getline(input, str);
 			int linenum = 0;
-			while (getline(input, baseStr))
+			while (getline(input, str))
 			{
 				matrix.push_back(vector<int>());
-				tmp = baseStr[0] - '0';
-				for (int i = 1; i < baseStr.length(); i++)
-					if (baseStr[i] != ' ')
+				tmp = str[0] - '0';
+				for (int i = 1; i < str.length(); i++)
+					if (str[i] != ' ')
 					{
-						tmp *= 10; tmp += baseStr[i] - '0';
+						tmp *= 10; tmp += str[i] - '0';
 					}
 					else
 					{
 						matrix[linenum].push_back(tmp);
-						tmp = baseStr[i + 1] - '0';
+						tmp = str[i + 1] - '0';
 						i++;
 					}
 				matrix[linenum].push_back(tmp);
@@ -150,21 +150,21 @@ public:
 		{
 			if (!w)
 			{
-				getline(input, baseStr);
+				getline(input, str);
 				int lineNum = 0;
-				while (getline(input, baseStr))
+				while (getline(input, str))
 				{
 					list.push_back(vector<pair<int, int>>());
-					tmp = baseStr[0] - '0';
-					for (int i = 1; i < baseStr.length(); i++)
-						if (baseStr[i] != ' ')
+					tmp = str[0] - '0';
+					for (int i = 1; i < str.length(); i++)
+						if (str[i] != ' ')
 						{
-							tmp *= 10; tmp += baseStr[i] - '0';
+							tmp *= 10; tmp += str[i] - '0';
 						}
 						else
 						{
 							list[lineNum].push_back(make_pair(lineNum + 1, tmp));
-							tmp = baseStr[i + 1] - '0';
+							tmp = str[i + 1] - '0';
 							i++;
 						}
 					list[lineNum].push_back(make_pair(lineNum + 1, tmp));
@@ -174,24 +174,24 @@ public:
 			else
 			{
 				int tmp2;
-				getline(input, baseStr);
+				getline(input, str);
 				int numLine = 0;
-				while (getline(input, baseStr))
+				while (getline(input, str))
 				{
 					listTuples.push_back(vector<tuple<int, int, int>>());
-					tmp = baseStr[0] - '0';
-					for (int i = 1; i < baseStr.length(); i++)
-						if (baseStr[i] != ' ')
+					tmp = str[0] - '0';
+					for (int i = 1; i < str.length(); i++)
+						if (str[i] != ' ')
 						{
-							if (baseStr[i] != ',')
+							if (str[i] != ',')
 							{
 								tmp *= 10;
-								tmp += baseStr[i] - '0';
+								tmp += str[i] - '0';
 							}
 							else
 							{
 								tmp2 = tmp;
-								tmp = baseStr[i + 1] - '0';
+								tmp = str[i + 1] - '0';
 								i++;
 								continue;
 							}
@@ -199,7 +199,7 @@ public:
 						else
 						{
 							listTuples[numLine].push_back(make_tuple(numLine + 1, tmp2, tmp));
-							tmp = baseStr[i + 1] - '0';
+							tmp = str[i + 1] - '0';
 							i++;
 						}
 					listTuples[numLine].push_back(make_tuple(numLine + 1, tmp2, tmp));
@@ -212,24 +212,24 @@ public:
 		{
 			if (!w)
 			{
-				getline(input, baseStr);
+				getline(input, str);
 				int linenum = 0;
-				while (getline(input, baseStr))
+				while (getline(input, str))
 				{
 					vectorPairs.push_back(pair<int, int>());
-					vectorPairs[linenum].first = baseStr[0] - '0';
+					vectorPairs[linenum].first = str[0] - '0';
 					int i = 1;
-					while (baseStr[i] != ' ')
+					while (str[i] != ' ')
 					{
-						vectorPairs[linenum].first = vectorPairs[linenum].first * 10 + baseStr[i] - '0';
+						vectorPairs[linenum].first = vectorPairs[linenum].first * 10 + str[i] - '0';
 						i++;
 					}
 					i++;
-					vectorPairs[linenum].second = baseStr[i] - '0';
+					vectorPairs[linenum].second = str[i] - '0';
 					i++;
-					while (i < baseStr.length())
+					while (i < str.length())
 					{
-						vectorPairs[linenum].second = vectorPairs[linenum].second * 10 + baseStr[i] - '0';
+						vectorPairs[linenum].second = vectorPairs[linenum].second * 10 + str[i] - '0';
 						i++;
 					}
 					linenum++;
@@ -237,37 +237,64 @@ public:
 			}
 			else
 			{
-				getline(input, baseStr);
+				getline(input, str);
 				int linenum = 0;
-				while (getline(input, baseStr))
+				while (getline(input, str))
 				{
 					vectTuples.push_back(tuple<int, int, int>());
-					get<0>(vectTuples[linenum]) = baseStr[0] - '0';
+					get<0>(vectTuples[linenum]) = str[0] - '0';
 					int i = 1;
-					while (baseStr[i] != ' ')
+					while (str[i] != ' ')
 					{
-						get<0>(vectTuples[linenum]) = get<0>(vectTuples[linenum]) * 10 + baseStr[i] - '0';
+						get<0>(vectTuples[linenum]) = get<0>(vectTuples[linenum]) * 10 + str[i] - '0';
 						i++;
 					}
 					i++;
-					get<1>(vectTuples[linenum]) = baseStr[i] - '0';
+					get<1>(vectTuples[linenum]) = str[i] - '0';
 					i++;
-					while (baseStr[i] != ' ')
+					while (str[i] != ' ')
 					{
-						get<1>(vectTuples[linenum]) = get<1>(vectTuples[linenum]) * 10 + baseStr[i] - '0';
+						get<1>(vectTuples[linenum]) = get<1>(vectTuples[linenum]) * 10 + str[i] - '0';
 						i++;
 					}
 					i++;
-					get<2>(vectTuples[linenum]) = baseStr[i] - '0';
+					get<2>(vectTuples[linenum]) = str[i] - '0';
 					i++;
-					while (i < baseStr.length())
+					while (i < str.length())
 					{
-						get<2>(vectTuples[linenum]) = get<2>(vectTuples[linenum]) * 10 + baseStr[i] - '0';
+						get<2>(vectTuples[linenum]) = get<2>(vectTuples[linenum]) * 10 + str[i] - '0';
 						i++;
 					}
 					linenum++;
 				}
 			}
+		}
+	}
+	void addEdge(int from, int to, int weight = 1)
+	{
+		if (indicator == 1)
+			matrix[from - 1][to - 1] = weight;
+		if (indicator == 2)
+		{
+			if (!w)
+			{
+				list[from - 1].push_back(make_pair(from, to));
+				if (!isOriented)
+					list[to - 1].push_back(make_pair(to, from));
+			}
+			else
+			{
+				listTuples[from - 1].push_back(make_tuple(from, to, weight));
+				if (!isOriented)
+					listTuples[to - 1].push_back(make_tuple(to, from, weight));
+			}
+		}
+		if (indicator == 3)
+		{
+			if (!w)
+				vectorPairs.push_back(make_pair(from, to));
+			else
+				vectTuples.push_back(tuple<int, int, int>(from, to, weight));
 		}
 	}
 	void writeGraph(string fileName)
@@ -332,32 +359,40 @@ public:
 						output << get<0>(vectTuples[i]) << ' ' << get<1>(vectTuples[i]) << ' ' << get<2>(vectTuples[i]) << endl;
 		}
 	}
-	void addEdge(int from, int to, int weight = 1)
+	int changeEdge(int from, int to, int newWeight)
 	{
+		int oldWeight;
 		if (indicator == 1)
-			matrix[from - 1][to - 1] = weight;
+		{
+			oldWeight = matrix[from - 1][to - 1];
+			matrix[from - 1][to - 1] = newWeight;
+		}
 		if (indicator == 2)
 		{
-			if (!w)
+			for (int i = 0; i < listTuples[from - 1].size(); i++)
+				if (get<1>(listTuples[from - 1][i]) == to)
+				{
+					oldWeight = get<2>(listTuples[from - 1][i]);
+					get<2>(listTuples[from - 1][i]) = newWeight;
+				}
+			if (!isOriented)
 			{
-				list[from - 1].push_back(make_pair(from, to));
-				if (!isOriented)
-					list[to - 1].push_back(make_pair(to, from));
-			}
-			else
-			{
-				listTuples[from - 1].push_back(make_tuple(from, to, weight));
-				if (!isOriented)
-					listTuples[to - 1].push_back(make_tuple(to, from, weight));
+				for (int i = 0; i < listTuples[to - 1].size(); i++)
+					if (get<1>(listTuples[to - 1][i]) == from)
+					{
+						oldWeight = get<2>(listTuples[to - 1][i]);
+						get<2>(listTuples[to - 1][i]) = newWeight;
+					}
 			}
 		}
 		if (indicator == 3)
-		{
-			if (!w)
-				vectorPairs.push_back(make_pair(from, to));
-			else
-				vectTuples.push_back(tuple<int, int, int>(from, to, weight));
-		}
+			for (int i = 0; i < vectTuples.size(); i++)
+				if (get<0>(vectTuples[i]) == from && get<1>(vectTuples[i]) == to)
+				{
+					oldWeight = get<2>(vectTuples[i]);
+					get<2>(vectTuples[i]) = newWeight;
+				}
+		return oldWeight;
 	}
 	void removeEdge(int from, int to)
 	{
@@ -397,41 +432,6 @@ public:
 						vectTuples.erase(vectTuples.begin() + i);
 			}
 		}
-	}
-	int changeEdge(int from, int to, int newWeight)
-	{
-		int oldWeight;
-		if (indicator == 1)
-		{
-			oldWeight = matrix[from - 1][to - 1];
-			matrix[from - 1][to - 1] = newWeight;
-		}
-		if (indicator == 2)
-		{
-			for (int i = 0; i < listTuples[from - 1].size(); i++)
-				if (get<1>(listTuples[from - 1][i]) == to)
-				{
-					oldWeight = get<2>(listTuples[from - 1][i]);
-					get<2>(listTuples[from - 1][i]) = newWeight;
-				}
-			if (!isOriented)
-			{
-				for (int i = 0; i < listTuples[to - 1].size(); i++)
-					if (get<1>(listTuples[to - 1][i]) == from)
-					{
-						oldWeight = get<2>(listTuples[to - 1][i]);
-						get<2>(listTuples[to - 1][i]) = newWeight;
-					}
-			}
-		}
-		if (indicator == 3)
-			for (int i = 0; i < vectTuples.size(); i++)
-				if (get<0>(vectTuples[i]) == from && get<1>(vectTuples[i]) == to)
-				{
-					oldWeight = get<2>(vectTuples[i]);
-					get<2>(vectTuples[i]) = newWeight;
-				}
-		return oldWeight;
 	}
 	void transformToAdjList()
 	{
@@ -721,6 +721,7 @@ public:
 				{
 					dsu.unite(get<0>(edges[i]), get<1>(edges[i]));
 					result.vectTuples.push_back(make_tuple(get<0>(edges[i]), get<1>(edges[i]), get<2>(edges[i])));
+					numTrees--;
 				}
 			}
 			for (int z = 0; z < edges.size(); z++)
