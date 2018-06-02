@@ -721,7 +721,6 @@ public:
 				{
 					dsu.unite(get<0>(edges[i]), get<1>(edges[i]));
 					result.vectTuples.push_back(make_tuple(get<0>(edges[i]), get<1>(edges[i]), get<2>(edges[i])));
-					numTrees--;
 				}
 			}
 			for (int z = 0; z < edges.size(); z++)
